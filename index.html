@@ -2,8 +2,8 @@
 <html lang="da">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NORDIC INTERNATIONAL BANK - Netbank</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <title>NORDIC INTERNATIONAL BANK</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
@@ -11,7 +11,7 @@
       --nordic-blue: #0f172a;
       --nordic-gold: #d4af37;
     }
-    body { font-family: 'Lato', sans-serif; }
+    body { font-family: 'Lato', sans-serif; -webkit-tap-highlight-color: transparent; }
     h1, h2, h3, .brand-font { font-family: 'Playfair Display', serif; }
     .gold-gradient { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); }
     .navy-gradient { background: linear-gradient(to bottom right, #0f172a, #1e293b); }
@@ -19,227 +19,266 @@
     .transform-style-3d { transform-style: preserve-3d; }
     .backface-hidden { backface-visibility: hidden; }
     .rotate-y-180 { transform: rotateY(180deg); }
+    
     @keyframes pulse-gold {
       0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
       50% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
     }
     .alert-pulse { animation: pulse-gold 2s infinite; }
-    .view-section { display: none; }
+    
+    .view-section { display: none; animation: fadeIn 0.3s ease-in-out; }
     .view-section.active { display: block; }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
     .dropdown-menu { transform-origin: top right; transition: all 0.2s ease-out; }
     .dropdown-menu.hidden { transform: scale(0.95); opacity: 0; pointer-events: none; }
     .dropdown-menu.visible { transform: scale(1); opacity: 1; pointer-events: auto; }
-    /* Eye icon transition */
-    .eye-btn:hover { color: #d4af37; }
+    
+    /* Mobile Menu Transition */
+    #mobile-menu { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
+    #mobile-menu.open { max-height: 400px; opacity: 1; }
   </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 text-gray-800">
 
   <div id="loginPage" class="min-h-screen flex flex-col md:flex-row">
-    <div class="navy-gradient text-white md:w-1/2 p-8 flex flex-col justify-center relative overflow-hidden">
-      <div class="max-w-md mx-auto z-10">
-        <div class="mb-12">
-          <div class="flex items-center mb-8">
-            <div class="w-12 h-12 rounded-full border-2 border-yellow-500 flex items-center justify-center mr-4 bg-slate-900">
+    <div class="navy-gradient text-white w-full md:w-1/2 p-8 flex flex-col justify-center relative overflow-hidden min-h-[35vh] md:min-h-screen">
+      <div class="max-w-md mx-auto z-10 text-center md:text-left">
+        <div class="mb-6 md:mb-12">
+          <div class="flex flex-col md:flex-row items-center mb-4 md:mb-8 justify-center md:justify-start">
+            <div class="w-16 h-16 md:w-12 md:h-12 rounded-full border-2 border-yellow-500 flex items-center justify-center mb-3 md:mb-0 md:mr-4 bg-slate-900 shadow-xl">
                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2v20M2 12h20M4.929 4.929l14.142 14.142M4.929 19.071L19.071 4.929" />
                </svg>
             </div>
             <div>
-                <span class="text-3xl brand-font tracking-wide text-white">NORDIC</span>
-                <div class="text-xs text-yellow-500 tracking-[0.2em] uppercase">International Bank</div>
+                <span class="text-3xl md:text-3xl brand-font tracking-wide text-white block">NORDIC</span>
+                <div class="text-[10px] md:text-xs text-yellow-500 tracking-[0.2em] uppercase">International Bank</div>
             </div>
           </div>
-          <h1 class="text-4xl brand-font font-light mb-6 leading-tight">Bankvirksomhed <br><span class="text-yellow-500 italic">Omdefineret.</span></h1>
+          <h1 class="text-2xl md:text-4xl brand-font font-light leading-tight hidden md:block">Bankvirksomhed <br><span class="text-yellow-500 italic">Omdefineret.</span></h1>
         </div>
       </div>
     </div>
 
-    <div class="bg-white md:w-1/2 p-8 flex flex-col justify-center">
+    <div class="bg-white w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center flex-grow">
       <div class="max-w-md mx-auto w-full">
-        <h2 class="text-3xl brand-font text-slate-900 mb-2">Netbank</h2>
-        <p class="text-gray-500 mb-10 font-light">Log venligst ind for at fortsætte.</p>
-        <form id="loginForm" class="space-y-6">
+        <h2 class="text-2xl md:text-3xl brand-font text-slate-900 mb-2 text-center md:text-left">Netbank</h2>
+        <p class="text-gray-500 mb-8 font-light text-center md:text-left">Log venligst ind for at fortsætte.</p>
+        <form id="loginForm" class="space-y-5">
           <div>
             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Bruger-ID</label>
-            <input type="text" class="w-full px-4 py-4 bg-gray-50 border border-gray-200 focus:ring-1 focus:ring-slate-900" value="VJ-987654" />
+            <input type="text" class="w-full px-4 py-3 md:py-4 bg-gray-50 border border-gray-200 focus:ring-1 focus:ring-slate-900 rounded-lg" value="VJ-987654" />
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Adgangskode</label>
-            <input type="password" class="w-full px-4 py-4 bg-gray-50 border border-gray-200 focus:ring-1 focus:ring-slate-900" value="password" />
+            <input type="password" class="w-full px-4 py-3 md:py-4 bg-gray-50 border border-gray-200 focus:ring-1 focus:ring-slate-900 rounded-lg" value="password" />
           </div>
-          <button type="submit" class="w-full py-4 px-4 text-white navy-gradient hover:opacity-90 font-bold uppercase tracking-widest shadow-md">Log på</button>
+          <button type="submit" class="w-full py-3 md:py-4 px-4 text-white navy-gradient hover:opacity-90 font-bold uppercase tracking-widest shadow-lg rounded-lg transition-transform active:scale-95">Log på</button>
         </form>
+        <p class="text-center text-xs text-gray-400 mt-8">Sikker forbindelse via SSL kryptering.</p>
       </div>
     </div>
   </div>
 
-  <div id="dashboardSection" class="hidden min-h-screen bg-gray-50">
+  <div id="dashboardSection" class="hidden min-h-screen bg-gray-50 pb-12">
     
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
+                
                 <div class="flex items-center">
+                    <button onclick="toggleMobileMenu()" class="mr-3 p-2 rounded-md text-gray-500 hover:text-gray-900 focus:outline-none md:hidden">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+
                     <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="switchView('synthesis')">
                          <div class="w-8 h-8 rounded-full border border-yellow-500 flex items-center justify-center mr-2 bg-slate-900">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2v20M2 12h20" />
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.9 4.9l14.2 14.2M4.9 19.1L19.1 4.9" />
                            </svg>
                         </div>
-                        <span class="font-bold text-slate-900 brand-font tracking-wider">NORDIC IB</span>
+                        <span class="font-bold text-slate-900 brand-font tracking-wider hidden sm:block">NORDIC IB</span>
+                        <span class="font-bold text-slate-900 brand-font tracking-wider sm:hidden">NIB</span>
                     </div>
-                    <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
+
+                    <div class="hidden md:ml-8 md:flex md:space-x-8">
                         <button onclick="switchView('synthesis')" id="nav-synthesis" class="border-b-2 border-yellow-500 text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Oversigt</button>
                         <button onclick="switchView('transfers')" id="nav-transfers" class="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Overførsler</button>
                         <button onclick="switchView('documents')" id="nav-documents" class="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Dokumenter</button>
                     </div>
                 </div>
                 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 md:space-x-4">
                     <button class="text-gray-400 hover:text-gray-500 relative p-2">
                         <span class="absolute top-1 right-2 h-2.5 w-2.5 rounded-full bg-red-600 ring-2 ring-white animate-pulse"></span>
-                        <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-9.33-5M7 17h6M10 21h4a2 2 0 01-4 0z"/></svg>
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-9.33-5M7 17h6M10 21h4a2 2 0 01-4 0z"/></svg>
                     </button>
                     
-                    <div class="relative ml-3">
+                    <div class="relative ml-2">
                         <button onclick="toggleUserMenu()" class="flex items-center focus:outline-none">
-                             <span class="text-sm font-medium text-gray-700 mr-2 hidden md:block">Veronick Jecksen</span>
-                             <div class="h-8 w-8 rounded-full bg-slate-900 flex items-center justify-center text-yellow-500 font-bold border border-yellow-500">VJ</div>
+                             <span class="text-sm font-medium text-gray-700 mr-2 hidden lg:block">Veronick Jecksen</span>
+                             <div class="h-9 w-9 rounded-full bg-slate-900 flex items-center justify-center text-yellow-500 font-bold border border-yellow-500 shadow-sm">VJ</div>
                         </button>
                         
                         <div id="userMenu" class="dropdown-menu hidden absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50">
+                            <div class="px-4 py-2 border-b border-gray-100 lg:hidden">
+                                <p class="text-sm font-medium text-gray-900">Veronick Jecksen</p>
+                                <p class="text-xs text-gray-500">ID: 987654</p>
+                            </div>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="switchView('settings')">Indstillinger</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Hjælpecenter</a>
-                            <div class="border-t border-gray-100"></div>
                             <a href="#" onclick="logout()" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 font-medium">Log ud</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-100 shadow-inner">
+            <div class="pt-2 pb-4 space-y-1 px-4">
+                <button onclick="switchView('synthesis')" class="block w-full text-left pl-3 pr-4 py-3 border-l-4 border-yellow-500 text-base font-medium text-slate-900 bg-yellow-50 rounded-r-md">Oversigt</button>
+                <button onclick="switchView('transfers')" class="block w-full text-left pl-3 pr-4 py-3 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800 rounded-r-md">Overførsler</button>
+                <button onclick="switchView('documents')" class="block w-full text-left pl-3 pr-4 py-3 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800 rounded-r-md">Dokumenter</button>
+            </div>
+        </div>
     </nav>
 
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         
         <div id="view-synthesis" class="view-section active">
-            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-8 shadow-sm rounded-r-md">
-                <div class="flex">
-                    <div class="flex-shrink-0">
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 md:mb-8 shadow-sm rounded-r-md">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 mt-0.5">
                         <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
                     </div>
-                    <div class="ml-3">
-                        <p class="text-sm text-red-700 font-bold">VIGTIGT: MIDELLER FROSSET (SAGS.NR F2025-9672417)</p>
-                        <p class="text-sm text-red-600 mt-1">Den indgående overførsel på 5.000.000,00 € er midlertidigt suspenderet. Betaling af frigivelsesgebyr (10.000 €) er påkrævet for øjeblikkelig adgang til kontoen.</p>
+                    <div class="ml-3 w-full">
+                        <p class="text-sm text-red-700 font-bold uppercase tracking-wide">VIGTIGT: FROSNE MIDLER</p>
+                        <p class="text-sm text-red-600 mt-1 leading-relaxed">
+                            Sagsnr: <strong>F2025-9672417</strong>.<br>
+                            Den indgående overførsel på <span class="font-bold">5.000.000,00 €</span> er suspenderet. Betaling af frigivelsesgebyr (<span class="font-bold underline">10.000 €</span>) er påkrævet.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
                 <div class="lg:col-span-2 space-y-6">
-                    <h2 class="text-2xl font-bold text-gray-800 brand-font">Mine Konti</h2>
+                    <h2 class="text-2xl font-bold text-gray-800 brand-font px-1">Mine Konti</h2>
                     
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex justify-between items-center">
-                        <div class="flex items-center">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 md:p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                        <div class="flex items-center mb-4 sm:mb-0">
                             <div class="bg-slate-100 p-3 rounded-lg mr-4">
                                 <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
                             </div>
                             <div>
                                 <h3 class="text-lg font-medium text-gray-900">Transaktionskonto</h3>
-                                <p class="text-sm text-gray-500 font-mono">DK22 3000 1234 5678 9012</p>
+                                <p class="text-sm text-gray-500 font-mono">... 9012</p>
                             </div>
                         </div>
-                        <div class="text-right">
+                        <div class="text-left sm:text-right w-full sm:w-auto border-t sm:border-t-0 border-gray-100 pt-3 sm:pt-0">
                             <span class="block text-2xl font-bold text-gray-900">20,00 €</span>
-                            <span class="text-xs text-amber-600 font-medium">Lav saldo</span>
+                            <span class="text-xs text-amber-600 font-medium bg-amber-50 px-2 py-1 rounded inline-block">Lav saldo</span>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-lg border-2 border-red-100 p-6 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg uppercase">Suspenderet</div>
-                        <div class="flex justify-between items-center opacity-75">
+                    <div class="bg-white rounded-xl shadow-lg border-2 border-red-100 p-0 relative overflow-hidden">
+                         <div class="bg-red-50 p-4 border-b border-red-100 flex justify-between items-center">
                              <div class="flex items-center">
-                                <div class="bg-red-50 p-3 rounded-lg mr-4">
-                                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-medium text-gray-900">Deponeringskonto (Guld)</h3>
-                                    <p class="text-sm text-gray-500 font-mono font-bold tracking-wide">DK22 2000 9876 5432 1098 1619</p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <span class="block text-3xl font-bold text-gray-400 blur-[1px]">5.000.000,00 €</span>
-                                <span class="text-xs text-red-600 font-bold flex items-center justify-end">
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 6.89a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"></path></svg>
+                                 <svg class="w-5 h-5 text-red-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                 <span class="text-red-700 font-bold text-sm uppercase">Suspenderet Konto</span>
+                             </div>
+                             <span class="text-xs text-red-500 font-mono">Ref: F2025...</span>
+                         </div>
+                         
+                         <div class="p-5 md:p-6">
+                             <div class="mb-4">
+                                <h3 class="text-lg font-medium text-gray-900">Deponeringskonto (Guld)</h3>
+                                <p class="text-xs md:text-sm text-gray-500 font-mono font-bold tracking-wide break-all mt-1">DK22 2000 9876 5432 1098 1619</p>
+                             </div>
+                             
+                             <div class="flex flex-col items-center justify-center py-6 bg-slate-50 rounded-lg border border-slate-100 mb-6">
+                                <span class="text-3xl md:text-4xl font-bold text-gray-400 blur-[1px]">5.000.000,00 €</span>
+                                <span class="text-xs text-red-600 font-bold flex items-center mt-2 bg-white px-3 py-1 rounded-full shadow-sm">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
                                     IKKE TILGÆNGELIG
                                 </span>
-                            </div>
-                        </div>
-                        <div class="mt-6 border-t border-dashed border-gray-300 pt-4 flex justify-between items-center">
-                            <p class="text-sm text-gray-600 italic">Ref: F2025-9672417</p>
-                            <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded text-sm font-bold shadow-md alert-pulse transition uppercase">
-                                Betal gebyrer (10.000 €)
+                             </div>
+
+                            <button class="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-3 md:py-4 rounded-lg text-sm md:text-base font-bold shadow-md alert-pulse transition uppercase flex items-center justify-center">
+                                <span>Betal gebyrer (10.000 €)</span>
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </button>
                         </div>
                     </div>
 
                      <div class="mt-8">
-                         <h3 class="text-lg font-bold text-gray-800 mb-4 brand-font">Historik</h3>
+                         <h3 class="text-lg font-bold text-gray-800 mb-4 brand-font px-1">Seneste aktivitet</h3>
                          <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                             <table class="min-w-full divide-y divide-gray-200">
-                                 <tbody class="bg-white divide-y divide-gray-200">
-                                     <tr class="bg-red-50">
-                                         <td class="px-6 py-4 text-sm text-gray-500">22. Dec</td>
-                                         <td class="px-6 py-4 text-sm font-medium text-gray-900">
-                                             <div class="flex items-center">
-                                                 <span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-                                                 <div>
-                                                     Indgående overførsel (Afventer)<br>
-                                                     <span class="text-xs text-gray-500 font-normal">Fra: Roberto James</span>
+                             <div class="overflow-x-auto">
+                                 <table class="min-w-full divide-y divide-gray-200">
+                                     <tbody class="bg-white divide-y divide-gray-200">
+                                         <tr class="bg-red-50">
+                                             <td class="px-4 md:px-6 py-4 text-xs md:text-sm text-gray-500 whitespace-nowrap">22. Dec</td>
+                                             <td class="px-4 md:px-6 py-4 text-sm font-medium text-gray-900">
+                                                 <div class="flex items-start md:items-center flex-col md:flex-row">
+                                                     <div class="flex items-center mb-1 md:mb-0">
+                                                         <span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+                                                         <span>Indgående overførsel</span>
+                                                     </div>
+                                                     <span class="text-xs text-gray-500 font-normal md:ml-2">Fra: Roberto James</span>
                                                  </div>
-                                             </div>
-                                         </td>
-                                         <td class="px-6 py-4 text-sm text-right font-bold text-gray-400">+ 5.000.000,00 €</td>
-                                     </tr>
-                                     <tr>
-                                         <td class="px-6 py-4 text-sm text-gray-500">21. Dec</td>
-                                         <td class="px-6 py-4 text-sm text-gray-900">Kontogebyrer</td>
-                                         <td class="px-6 py-4 text-sm text-right text-gray-900">- 15,00 €</td>
-                                     </tr>
-                                 </tbody>
-                             </table>
+                                             </td>
+                                             <td class="px-4 md:px-6 py-4 text-sm text-right font-bold text-gray-400 whitespace-nowrap">+ 5.000.000 €</td>
+                                         </tr>
+                                         <tr>
+                                             <td class="px-4 md:px-6 py-4 text-xs md:text-sm text-gray-500 whitespace-nowrap">21. Dec</td>
+                                             <td class="px-4 md:px-6 py-4 text-sm text-gray-900">Kontogebyrer</td>
+                                             <td class="px-4 md:px-6 py-4 text-sm text-right text-gray-900 whitespace-nowrap">- 15,00 €</td>
+                                         </tr>
+                                     </tbody>
+                                 </table>
+                             </div>
                          </div>
                      </div>
                 </div>
 
-                <div class="lg:col-span-1 space-y-8">
+                <div class="lg:col-span-1 space-y-6 md:space-y-8">
+                    
                     <div class="perspective-1000 group">
-                        <div class="card-inner relative w-full h-56 transition-transform duration-700 transform-style-3d shadow-2xl rounded-2xl">
-                            <div class="absolute w-full h-full backface-hidden rounded-2xl p-6 text-white navy-gradient border border-slate-600 flex flex-col justify-between relative">
+                        <div class="card-inner relative w-full aspect-[1.586/1] md:h-56 transition-transform duration-700 transform-style-3d shadow-2xl rounded-2xl">
+                            <div class="absolute w-full h-full backface-hidden rounded-2xl p-5 md:p-6 text-white navy-gradient border border-slate-600 flex flex-col justify-between relative">
                                  
-                                 <button onclick="toggleCardMask(this)" class="eye-btn absolute top-6 right-6 text-gray-300 hover:text-white transition-colors z-20 focus:outline-none">
-                                     <svg id="eye-closed" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path></svg>
-                                     <svg id="eye-open" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                 <button onclick="toggleCardMask(this)" class="eye-btn absolute top-4 right-4 md:top-6 md:right-6 text-gray-300 hover:text-white transition-colors z-20 focus:outline-none p-2 bg-black/20 rounded-full backdrop-blur-sm">
+                                     <svg id="eye-closed" class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path></svg>
+                                     <svg id="eye-open" class="w-5 h-5 md:w-6 md:h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                                  </button>
 
                                  <div class="flex justify-between items-start">
-                                     <div class="w-12 h-8 bg-gradient-to-r from-yellow-200 to-yellow-500 rounded opacity-90"></div>
-                                     <div class="text-right mr-8"> <span class="block text-xs text-yellow-500 font-bold tracking-widest uppercase">Infinite</span>
-                                         <span class="text-lg brand-font italic font-bold">Nordic IB</span>
+                                     <div class="w-10 h-7 md:w-12 md:h-8 bg-gradient-to-r from-yellow-200 to-yellow-500 rounded opacity-90"></div>
+                                     <div class="text-right mr-8">
+                                         <span class="block text-[10px] md:text-xs text-yellow-500 font-bold tracking-widest uppercase">Infinite</span>
+                                         <span class="text-base md:text-lg brand-font italic font-bold">Nordic IB</span>
                                      </div>
                                  </div>
                                  
-                                 <div class="text-xl tracking-widest font-mono text-shadow mt-4" id="card-number-display">
+                                 <div class="text-lg md:text-xl tracking-widest font-mono text-shadow mt-2" id="card-number-display">
                                      **** **** **** 4126
                                  </div>
                                  
                                  <div class="flex justify-between text-xs uppercase tracking-wider text-gray-300 mt-auto">
                                      <div>
-                                         <span class="block text-[10px] text-gray-500">Kortholder</span>
-                                         <span id="card-name-display">VERONICK JECKSEN</span>
+                                         <span class="block text-[9px] md:text-[10px] text-gray-500">Kortholder</span>
+                                         <span id="card-name-display" class="font-medium">VERONICK JECKSEN</span>
                                      </div>
                                      <div>
-                                         <span class="block text-[10px] text-gray-500">Udløber</span>
+                                         <span class="block text-[9px] md:text-[10px] text-gray-500">Udløber</span>
                                          <span>12/28</span>
                                      </div>
                                  </div>
@@ -247,71 +286,85 @@
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 md:p-6">
                         <h3 class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-4">Privatrådgiver</h3>
                         <div class="flex items-center">
-                            <div class="h-10 w-10 rounded-full bg-slate-800 text-white flex items-center justify-center font-serif text-sm">PS</div>
+                            <div class="h-10 w-10 md:h-12 md:w-12 rounded-full bg-slate-800 text-white flex items-center justify-center font-serif text-sm md:text-base border-2 border-slate-700">PS</div>
                             <div class="ml-3">
                                 <p class="text-sm font-bold text-gray-900">Peter Sørensen</p>
-                                <p class="text-xs text-green-600 flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-1"></span> Online</p>
+                                <p class="text-xs text-green-600 flex items-center font-medium bg-green-50 px-2 py-0.5 rounded-full inline-flex mt-0.5">
+                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span> Online
+                                </p>
                             </div>
                         </div>
+                         <button class="w-full mt-4 border border-slate-300 text-slate-700 py-2 rounded text-xs font-bold uppercase hover:bg-slate-50 transition-colors">
+                            Send Besked
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="view-transfers" class="view-section">
-            <h2 class="text-2xl font-bold text-gray-800 brand-font mb-6">Foretag en overførsel</h2>
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 max-w-2xl mx-auto">
-                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 brand-font mb-6 px-1">Foretag en overførsel</h2>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 max-w-2xl mx-auto">
+                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6 rounded-r-md">
                     <p class="text-sm text-amber-800">
-                        <strong>Info:</strong> Overførsler fra din deponeringskonto (5.000.000 €) er midlertidigt deaktiveret indtil sag F2025-9672417 er løst.
+                        <strong>Info:</strong> Overførsler fra deponeringskonto (5.000.000 €) er deaktiveret indtil sag F2025-9672417 er løst.
                     </p>
                 </div>
                 <form class="space-y-6 opacity-50 pointer-events-none">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Fra konto</label>
-                        <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md border">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Fra konto</label>
+                        <select class="block w-full pl-3 pr-10 py-3 text-base border-gray-300 rounded-lg border bg-gray-50">
                             <option>Transaktionskonto - 20,00 €</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Modtager</label>
-                        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" placeholder="Navn eller IBAN">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Modtager</label>
+                        <input type="text" class="block w-full border border-gray-300 rounded-lg p-3" placeholder="Navn eller IBAN">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Beløb</label>
-                        <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" placeholder="0.00">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Beløb</label>
+                        <div class="relative rounded-md shadow-sm">
+                            <input type="number" class="block w-full border border-gray-300 rounded-lg p-3 pr-12" placeholder="0.00">
+                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <span class="text-gray-500 sm:text-sm">EUR</span>
+                            </div>
+                        </div>
                     </div>
-                    <button class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-slate-900">Godkend</button>
+                    <button class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold uppercase text-white bg-slate-900">Godkend</button>
                 </form>
             </div>
         </div>
 
         <div id="view-documents" class="view-section">
-            <h2 class="text-2xl font-bold text-gray-800 brand-font mb-6">Mine Dokumenter</h2>
+            <h2 class="text-2xl font-bold text-gray-800 brand-font mb-6 px-1">Mine Dokumenter</h2>
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <ul class="divide-y divide-gray-200">
-                    <li class="px-6 py-4 hover:bg-gray-50 flex items-center justify-between">
+                    <li class="px-6 py-5 hover:bg-gray-50 flex items-center justify-between transition-colors cursor-pointer">
                         <div class="flex items-center">
-                            <svg class="h-6 w-6 text-red-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                            <div class="bg-red-50 p-2 rounded mr-4">
+                                <svg class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                            </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-900">Meddelelse om kontosuspendering.pdf</p>
-                                <p class="text-xs text-gray-500">22. December 2025</p>
+                                <p class="text-sm font-bold text-gray-900">Meddelelse om kontosuspendering.pdf</p>
+                                <p class="text-xs text-gray-500 mt-0.5">22. December 2025 • 245 KB</p>
                             </div>
                         </div>
-                        <button class="text-slate-900 hover:underline text-sm font-bold">Hent</button>
+                        <button class="text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1 rounded text-xs font-bold uppercase">Hent</button>
                     </li>
-                    <li class="px-6 py-4 hover:bg-gray-50 flex items-center justify-between">
+                    <li class="px-6 py-5 hover:bg-gray-50 flex items-center justify-between transition-colors cursor-pointer">
                         <div class="flex items-center">
-                            <svg class="h-6 w-6 text-gray-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                            <div class="bg-gray-100 p-2 rounded mr-4">
+                                <svg class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                            </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-900">Kontooplysninger (IBAN).pdf</p>
-                                <p class="text-xs text-gray-500">Permanent</p>
+                                <p class="text-sm font-bold text-gray-900">Kontooplysninger (IBAN).pdf</p>
+                                <p class="text-xs text-gray-500 mt-0.5">Permanent • 120 KB</p>
                             </div>
                         </div>
-                        <button class="text-slate-900 hover:underline text-sm font-bold">Hent</button>
+                        <button class="text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1 rounded text-xs font-bold uppercase">Hent</button>
                     </li>
                 </ul>
             </div>
@@ -321,12 +374,14 @@
   </div>
 
   <script>
-    // Login logic
+    // --- Login Logic ---
     document.getElementById("loginForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const btn = this.querySelector('button');
-      btn.innerText = "BEKRÆFTER...";
-      btn.classList.add('opacity-75', 'cursor-not-allowed');
+      const originalText = btn.innerText;
+      btn.innerText = "Logger ind...";
+      btn.classList.add('opacity-75', 'cursor-not-allowed', 'scale-95');
+      
       setTimeout(() => {
           document.getElementById('loginPage').style.display = 'none';
           document.getElementById('dashboardSection').classList.remove('hidden');
@@ -334,11 +389,22 @@
       }, 1000);
     });
 
-    // View Switching logic
+    // --- Mobile Menu Toggle ---
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        if (menu.classList.contains('open')) {
+            menu.classList.remove('open');
+        } else {
+            menu.classList.add('open');
+        }
+    }
+
+    // --- View Switching ---
     function switchView(viewName) {
         document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
         document.getElementById('view-' + viewName).classList.add('active');
         
+        // Update Desktop Nav
         const navIds = ['synthesis', 'transfers', 'documents'];
         navIds.forEach(id => {
             const btn = document.getElementById('nav-' + id);
@@ -352,11 +418,16 @@
                 }
             }
         });
+        
+        // Update Mobile Nav (Basic styling update for active state logic could go here)
+        
+        // Close Mobile Menu on selection
+        document.getElementById('mobile-menu').classList.remove('open');
         document.getElementById('userMenu').classList.add('hidden');
         document.getElementById('userMenu').classList.remove('visible');
     }
 
-    // Menu dropdown
+    // --- User Dropdown ---
     function toggleUserMenu() {
         const menu = document.getElementById('userMenu');
         if (menu.classList.contains('hidden')) {
@@ -368,19 +439,19 @@
         }
     }
 
-    // Logout
+    // --- Logout ---
     function logout() {
         document.getElementById('dashboardSection').classList.add('hidden');
         document.getElementById('loginPage').style.display = 'flex';
         const btn = document.querySelector('#loginForm button');
         btn.innerText = "LOG PÅ";
-        btn.classList.remove('opacity-75', 'cursor-not-allowed');
+        btn.classList.remove('opacity-75', 'cursor-not-allowed', 'scale-95');
         switchView('synthesis');
     }
 
-    // Card Masking Toggle
+    // --- Credit Card Eye Toggle ---
     let isCardRevealed = false;
-    const realCardNumber = "4921 5820 3654 4126"; // Un faux numéro réaliste
+    const realCardNumber = "4921 5820 3654 4126"; 
     const maskedCardNumber = "**** **** **** 4126";
 
     function toggleCardMask(btn) {
@@ -390,18 +461,24 @@
         const eyeClosed = document.getElementById('eye-closed');
         const eyeOpen = document.getElementById('eye-open');
 
-        if (isCardRevealed) {
-            numDisplay.innerText = realCardNumber;
-            eyeClosed.classList.add('hidden');
-            eyeOpen.classList.remove('hidden');
-        } else {
-            numDisplay.innerText = maskedCardNumber;
-            eyeClosed.classList.remove('hidden');
-            eyeOpen.classList.add('hidden');
-        }
+        // Animation d'opacité
+        numDisplay.style.opacity = '0';
+        
+        setTimeout(() => {
+            if (isCardRevealed) {
+                numDisplay.innerText = realCardNumber;
+                eyeClosed.classList.add('hidden');
+                eyeOpen.classList.remove('hidden');
+            } else {
+                numDisplay.innerText = maskedCardNumber;
+                eyeClosed.classList.remove('hidden');
+                eyeOpen.classList.add('hidden');
+            }
+            numDisplay.style.opacity = '1';
+        }, 150);
     }
 
-    // Close dropdown on outside click
+    // --- Close dropdowns on outside click ---
     document.addEventListener('click', function(event) {
         const menu = document.getElementById('userMenu');
         const button = event.target.closest('button');
